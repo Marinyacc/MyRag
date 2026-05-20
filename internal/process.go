@@ -8,15 +8,9 @@ import (
 )
 
 var systemPrompt = `
-# Role: Student Learning Assistant
+# Role:Learning and Searching Assistant
 
 # Language: Chinese
-
-- When providing assistance:
-  • Be clear and concise
-  • Include practical examples when relevant
-  • Reference documentation when helpful
-  • Suggest improvements or next steps if applicable
 
 here's documents searched for you:
 ==== doc start ====
@@ -24,23 +18,26 @@ here's documents searched for you:
 ==== doc end ====
 `
 
-func Process(ctx context.Context, query string) string {
+func Process(ctx context.Context, query string) *schema.Message {
 	results, err := MyRag.Retriever.Retrieve(ctx, query)
 	if err != nil {
 		panic(err)
 	}
 	tpl := prompt.FromMessages(schema.FString, []schema.MessagesTemplate{
 		schema.SystemMessage(systemPrompt),
-		schema.UserMessage("questiong:{query}"),
+		schema.UserMessage("question:{query}"),
 	}...)
 	params := map[string]any{
-		"doc":   results,
-		"query": query,
+		"documents": results,
+		"query":     query,
 	}
 	messages, err := tpl.Format(ctx, params)
+	if err != nil {
+		panic(err)
+	}
 	resp, err := MyRag.ChatModel.Generate(ctx, messages)
 	if err != nil {
 		panic(err)
 	}
-	return resp.Content
+	return resp
 }

@@ -23,7 +23,7 @@ func main() {
 
 	internal.Init(ctx)
 
-
+	fmt.Println("启动成功!")
 	for {
 		scanner := bufio.NewScanner(os.Stdin)
 		var begin time.Time
@@ -38,11 +38,14 @@ func main() {
 
 			resp := internal.Process(ctx, query)
 
-			fmt.Println(resp)
+			fmt.Println(resp.Content)
+			//记录对话处理时间
+			fmt.Println("====================================")
+			fmt.Println("本次对话耗时:", tool.CountTime(begin))
+			fmt.Println("消耗:", resp.ResponseMeta.Usage.TotalTokens, "tokens")
+			fmt.Println("====================================")
 		}
 
-		//记录对话处理时间
-		fmt.Println("本次对话耗时:", tool.CountTime(begin))
 	}
 
 	fmt.Println("成功退出!")

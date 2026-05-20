@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"MyRag/tool"
 	"context"
 	"io/fs"
 	"os"
@@ -12,7 +13,7 @@ import (
 )
 
 func docInit(ctx context.Context) {
-	root := "../document"
+	root := "./document"
 	var docs []*schema.Document
 	cnt := 0
 
@@ -32,8 +33,11 @@ func docInit(ctx context.Context) {
 				panic(err)
 			}
 			docs = append(docs, &schema.Document{
-				ID:      "doc:" + strconv.Itoa(cnt),
+				ID:      "doc_" + strconv.Itoa(cnt),
 				Content: string(b),
+				MetaData: map[string]any{
+					"Title": tool.Hash(path),
+				},
 			})
 		}
 		return nil
@@ -57,9 +61,11 @@ func docInit(ctx context.Context) {
 			Count = 1
 		}
 		Docs = append(Docs, &schema.Document{
-			ID:      doc.ID + ":" + strconv.Itoa(Count),
-			Content: doc.Content,
+			ID:       doc.ID + ":" + strconv.Itoa(Count),
+			Content:  doc.Content,
+			MetaData: doc.MetaData,
 		})
+		Count++
 	}
 
 	_, err = MyRag.Indexer.Store(ctx, Docs)

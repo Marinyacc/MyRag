@@ -3,12 +3,14 @@ module MyRag
 go 1.25.3
 
 require (
+	github.com/cloudwego/eino v0.7.13
 	github.com/cloudwego/eino-ext/components/document/transformer/splitter/markdown v0.0.0-20260517075931-80b50f07e90b
 	github.com/cloudwego/eino-ext/components/embedding/ark v0.1.1
 	github.com/cloudwego/eino-ext/components/indexer/milvus v0.0.0-20260517075931-80b50f07e90b
 	github.com/cloudwego/eino-ext/components/model/ark v0.1.68
 	github.com/cloudwego/eino-ext/components/retriever/milvus v0.0.0-20260517075931-80b50f07e90b
 	github.com/joho/godotenv v1.5.1
+	github.com/milvus-io/milvus-sdk-go/v2 v2.4.2
 )
 
 require (
@@ -18,7 +20,6 @@ require (
 	github.com/bytedance/sonic v1.15.0 // indirect
 	github.com/bytedance/sonic/loader v0.5.0 // indirect
 	github.com/cloudwego/base64x v0.1.6 // indirect
-	github.com/cloudwego/eino v0.7.13 // indirect
 	github.com/cockroachdb/errors v1.9.1 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20211118104740-dabe8e521a4f // indirect
 	github.com/cockroachdb/redact v1.1.3 // indirect
@@ -37,7 +38,6 @@ require (
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/milvus-io/milvus-proto/go-api/v2 v2.4.10-0.20240819025435-512e3b98866a // indirect
-	github.com/milvus-io/milvus-sdk-go/v2 v2.4.2 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/nikolalohinski/gonja v1.5.3 // indirect

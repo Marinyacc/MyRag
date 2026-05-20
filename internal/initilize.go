@@ -29,9 +29,11 @@ func Init(ctx context.Context) {
 	}
 
 	//嵌入模型
+	apiType := embedding.APITypeMultiModal
 	Embedder, err := embedding.NewEmbedder(ctx, &embedding.EmbeddingConfig{
-		APIKey: os.Getenv("API_KEY"),
-		Model:  os.Getenv("EMBEDDING_MODEL"),
+		APIKey:  os.Getenv("API_KEY"),
+		Model:   os.Getenv("EMBEDDING_MODEL"),
+		APIType: &apiType,
 	})
 	if err != nil {
 		panic(err)
@@ -102,7 +104,7 @@ func Init(ctx context.Context) {
 		OutputFields: []string{
 			"id",
 			"content",
-			"metadat",
+			"metadata",
 		},
 		TopK:      5,
 		Embedding: Embedder,
